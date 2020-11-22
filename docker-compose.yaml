@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  
+  mongo:
+    image: mongo
+    volumes:
+      - ./mongodb-data:/data/db
+    ports:
+      - "27017:27017"
+# acesso administrativo MongoDB:
+#   http://0.0.0.0:8081
+  mongo-express:
+    image: mongo-express
+    links:
+      - mongo
+    container_name: "mongo-express"
+    ports:
+      - 8081:8081
+
+# acesso administrativo RabbitMQ:
+#   http://0.0.0.0:8082
+#    user: guest
+#    pass: guest      
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - ./rabbitmq-data/:/var/lib/rabbitmq/
+    ports:
+      - 5672:5672
+      - 8082:15672
+ 
