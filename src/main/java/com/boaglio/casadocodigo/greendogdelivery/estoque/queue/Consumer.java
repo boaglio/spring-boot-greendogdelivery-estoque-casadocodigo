@@ -22,7 +22,7 @@ public class Consumer {
 	@RabbitListener(queues = { "springboot.boaglio.queue" })
 	public void receiveMessage(@Payload Estoque mensagem) {
 
-		System.out.println("Recebido: <" + mensagem + ">");
+		System.out.println("Recebido via fila: <" + mensagem + ">");
 		
 		logFilaRepository.save(new LogFila("Recebendo", mensagem.toString()));
 
