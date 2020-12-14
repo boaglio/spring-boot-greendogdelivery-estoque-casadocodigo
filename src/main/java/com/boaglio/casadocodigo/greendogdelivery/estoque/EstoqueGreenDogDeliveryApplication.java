@@ -6,6 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
+
+@EnableAdminServer
 @SpringBootApplication
 @EnableMongoRepositories("com.boaglio") 
 @EnableReactiveMongoRepositories("com.boaglio") 
