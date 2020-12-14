@@ -1,5 +1,6 @@
 package com.boaglio.casadocodigo.greendogdelivery.estoque.controller;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,13 @@ public class EstoqueController {
 	    return reactiveEstoqueRepository.findTop10ByOrderByIdDesc();
 	}
 	
-	@GetMapping(path = "/atualiza-stream", produces = "application/stream+json")
-	public Flux<Estoque> getEstoqueStream() {
+	@GetMapping(value = "/lista-stream-com-pausa",produces ="text/event-stream")
+	public Flux<Estoque> getListaEstoqueStreamComPausa(){
+	    return reactiveEstoqueRepository.findTop10ByOrderByIdDesc().delayElements(Duration.ofMillis(300));
+	}
+	
+	@GetMapping(path = "/lista-stream", produces = "application/stream+json")
+	public Flux<Estoque> getListaEstoqueStream() {
 	    return reactiveEstoqueRepository.findAll();
 	}
 	

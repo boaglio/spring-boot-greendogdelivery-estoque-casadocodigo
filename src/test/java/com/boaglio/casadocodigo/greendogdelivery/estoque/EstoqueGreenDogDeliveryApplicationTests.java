@@ -1,8 +1,11 @@
 package com.boaglio.casadocodigo.greendogdelivery.estoque;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.boaglio.casadocodigo.greendogdelivery.estoque.domain.Estoque;
@@ -28,6 +31,8 @@ class EstoqueGreenDogDeliveryApplicationTests {
 	@Test
 	void buscaUltimos() {
 
+		System.out.println("------ Lista Ultimos ------");
+		
 		WebClient client = WebClient.create("http://localhost:9000");
 		
 		Flux<Estoque> employeeFlux = client.get().uri("/api/ultimos").retrieve().bodyToFlux(Estoque.class);
@@ -36,4 +41,34 @@ class EstoqueGreenDogDeliveryApplicationTests {
 
 	}
 
+	@Test
+	void buscaListaEstoqueStream() {
+		
+		System.out.println("------ Lista Estoque com Stream ------");
+
+		WebClient client = WebClient.create("http://localhost:9000");
+		
+		Flux<Estoque> employeeFlux = client.get().uri("/api/lista-stream").retrieve().bodyToFlux(Estoque.class);
+		
+		employeeFlux.subscribe(System.out::println);
+		
+		// teste com:  curl -v http://localhost:9000/api/lista-stream
+
+	}
+	
+	@Test
+	void buscaListaEstoqueStreamComPausa() {
+
+		System.out.println("------ Lista Estoque com Stream Pausado ------");
+        
+		WebClient client = WebClient.create("http://localhost:9000");
+		
+		Flux<Estoque> employeeFlux = client.get().uri("/api/lista-stream-com-pausa").retrieve().bodyToFlux(Estoque.class).timeout(Duration.ofMinutes(5));
+		
+		employeeFlux.subscribe(System.out::println);
+
+		// teste com:  curl -v http://localhost:9000/api/lista-stream-com-pausa
+
+	}
+	
 }
