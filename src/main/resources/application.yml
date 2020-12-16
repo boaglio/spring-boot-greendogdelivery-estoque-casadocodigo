@@ -1,6 +1,11 @@
 server:
   port: 9000
 javamelody:
+  #
+  # Acesse:
+  #
+  # http://localhost:9000/monitoring
+  #
   # Enable JavaMelody auto-configuration (optional, default: true)
   enabled: true
   # Enable monitoring of Spring services and controllers (optional, default: true)
