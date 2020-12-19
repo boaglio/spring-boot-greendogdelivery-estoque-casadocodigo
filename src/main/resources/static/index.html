@@ -10,26 +10,29 @@
  <div class="container">
   <script type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div class="jumbotron">
-  <h1>
-   <img alt="Spring" class="block" id="springlogo" src="spring-logo.svg" width="300">
-   Controle de estoque
-  </h1>
-  <h2>
-   <a href="/api/logs" target="_BLANK">Logs</a>
-  </h2>
-  <h2>
-   <a href="/api/lista" target="_BLANK">Lista todo estoque</a>
-  </h2>
-  <h2>
-   <a href="/api/ultimos" target="_BLANK">Lista lançamentos recentes</a>
-  </h2>
-  
-  <form>
-	Buscar:
-   <input type="text" id="search" autofocus="autofocus"  class="form-control" />
-  </form>
-</div>
-</div>
+  <div class="jumbotron">
+   <h1 class="display-4">
+    <img alt="Spring" class="block" id="springlogo" src="spring-logo.svg" width="300">
+    Controle de estoque
+   </h1>
+   <div class="d-flex justify-content-around"> 
+   <div class="card" style="width: 18rem;">
+    <div class="card-body">
+     <h5 class="card-title">Logs</h5>
+     <p class="card-text">Logs da API</p>
+     <a href="/api/logs" class="card-link" target="_BLANK">Logs</a>
+    </div>
+   </div>
+   <div class="card" style="width: 18rem;">
+    <div class="card-body">
+     <h5 class="card-title">Consultas</h5>
+     <p class="card-text">Consulta ao estoque</p>
+     <a href="/api/lista" class="card-link" target="_BLANK">Completo</a>
+     <a href="/api/ultimos" class="card-link" target="_BLANK">Últimos</a>
+    </div>
+   </div>
+   </div>
+  </div>
+ </div>
 </body>
 </html>
