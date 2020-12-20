@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+ <title>Controle de Estoque</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" type="text/css"	href="webjars/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+ <div class="container">
+  <script type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <div class="jumbotron">
+   <h1 class="display-4">
+    <img alt="Spring" class="block" id="springlogo" src="images/spring-logo.svg" width="300">
+    Controle de estoque
+   </h1>
+   <div sec:authorize="isAuthenticated()" class="d-flex justify-content-around"> 
+    <h1 th:inline="text">Olá [[${#httpServletRequest.remoteUser}]]!</h1>
+    <form th:action="@{/logout}" method="post">
+     <input type="submit" value="sair" class="btn btn-warning"/>
+    </form>      
+   </div>
+   <div sec:authorize="!isAuthenticated()" class="d-flex justify-content-around"> 
+    <form th:action="@{/login}" method="get">
+     <input type="submit" value="entrar" class="btn btn-primary"/>
+    </form>      
+   </div>
+   <div class="d-flex justify-content-around"> 
+    <div class="card" style="width: 18rem;">
+     <div class="card-body">
+      <h5 class="card-title">Logs</h5>
+      <p class="card-text">Logs da API</p>
+      <a href="/api/logs" class="card-link" target="_BLANK">Logs</a>
+     </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+     <div class="card-body">
+      <h5 class="card-title">Consultas</h5>
+      <p class="card-text">Consulta ao estoque</p>
+      <a th:href="@{/api/lista}" class="card-link" target="_BLANK">Completo</a>
+      <a th:href="@{/api/ultimos}" class="card-link" target="_BLANK">Últimos</a>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</body>
+</html>
