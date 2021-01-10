@@ -26,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 .antMatchers("/", "/home","/api/logs").permitAll()
 		 // todo o resto pede autenticação
 		 .anyRequest().authenticated().and()
+		 // HTTP Basic 
+		 //.httpBasic();
+		 // Form Login
 		 // libera página de login
 		 .formLogin().loginPage("/login").permitAll().and()
 		 // libera página de logout
@@ -35,11 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public UserDetailsService userDetailsService() {
 
-		UserDetails user = 
-		   User.withUsername("fernando")
-			   .password("{bcrypt}$2a$10$aEFtorrqwjJB5AfaGi1rqeCXBKwyMT6eys5bYpdKbYzAtB9zLN7U2")
-			   .roles("USER")
-			   .build();
+		  UserDetails user = 
+				  User.withUsername("fernando")
+				  .password("{bcrypt}$2a$10$N/JkyAmIDX70am/U3PPP7uiWuRHH9VklzpjKP9ugAe2t6tAnNWLjq")
+				  .roles("USER")
+				  .build();
 
 		return new InMemoryUserDetailsManager(user);
 	}
@@ -51,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public static void main(String[] args) {
 		String senhaAdmin = "boaglio123";
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		System.out.println("senha do admin = " + encoder.encode(senhaAdmin));
+		System.out.println("senha = " + encoder.encode(senhaAdmin));
 	}
 	
 }
