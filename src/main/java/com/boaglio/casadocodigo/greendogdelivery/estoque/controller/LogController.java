@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boaglio.casadocodigo.greendogdelivery.estoque.domain.LogFila;
 import com.boaglio.casadocodigo.greendogdelivery.estoque.repository.LogFilaRepository;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @RestController
 @RequestMapping("/api")
 public class LogController {

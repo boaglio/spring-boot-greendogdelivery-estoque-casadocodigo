@@ -18,6 +18,7 @@ import com.boaglio.casadocodigo.greendogdelivery.estoque.repository.ReactiveEsto
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api")
@@ -31,6 +32,7 @@ public class EstoqueController {
 	@Qualifier("reactiveEstoqueRepository")
 	ReactiveEstoqueRepository reactiveEstoqueRepository;
 	
+	@ApiIgnore
 	@GetMapping("/lista")
 	public List<Estoque> getTodoEstoque() {
 		return estoqueRepository.findAll();
@@ -43,28 +45,33 @@ public class EstoqueController {
 		return "Ok";
 	}
 	
+	@ApiIgnore
 	@GetMapping("/")
 	@ResponseBody
 	public Mono<String> one() {
 	    return Mono.just("API ");
 	}
 	
+	@ApiIgnore
 	@GetMapping("/ultimos")
 	@ResponseBody
 	public Flux<Estoque> ultimos() {
 	    return reactiveEstoqueRepository.findTop10ByOrderByIdDesc();
 	}
 	
+	@ApiIgnore
 	@GetMapping(value = "/lista-stream-com-pausa",produces ="text/event-stream")
 	public Flux<Estoque> getListaEstoqueStreamComPausa(){
 	    return reactiveEstoqueRepository.findTop10ByOrderByIdDesc().delayElements(Duration.ofMillis(300));
 	}
 	
+	@ApiIgnore
 	@GetMapping(path = "/lista-stream", produces = "application/stream+json")
 	public Flux<Estoque> getListaEstoqueStream() {
 	    return reactiveEstoqueRepository.findAll();
 	}
 	
+	@ApiIgnore
 	@PostMapping("/atualiza-reativo")
 	public Mono<String> atualizaReativo(@RequestBody Estoque estoque) {
 		System.out.println("Recebido via REST: "+estoque);
