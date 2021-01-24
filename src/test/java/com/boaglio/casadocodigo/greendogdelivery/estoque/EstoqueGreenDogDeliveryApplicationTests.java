@@ -34,9 +34,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
 		
 		WebClient client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> employeeFlux = client.get().uri("/api/ultimos").retrieve().bodyToFlux(Estoque.class);
+		Flux<Estoque> ultimosFlux = client.get().uri("/api/ultimos").retrieve().bodyToFlux(Estoque.class);
 		
-		employeeFlux.subscribe(System.out::println);
+		ultimosFlux.subscribe(System.out::println);
 
 	}
 
@@ -47,9 +47,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
 
 		WebClient client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> employeeFlux = client.get().uri("/api/lista-stream").retrieve().bodyToFlux(Estoque.class);
+		Flux<Estoque> ultimosFlux = client.get().uri("/api/lista-stream").retrieve().bodyToFlux(Estoque.class);
 		
-		employeeFlux.subscribe(System.out::println);
+		ultimosFlux.subscribe(System.out::println);
 		
 		// teste com:  curl -v http://localhost:9000/api/lista-stream
 
@@ -62,9 +62,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
         
 		WebClient client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> employeeFlux = client.get().uri("/api/lista-stream-com-pausa").retrieve().bodyToFlux(Estoque.class).timeout(Duration.ofMinutes(5));
+		Flux<Estoque> ultimosFlux = client.get().uri("/api/lista-stream-com-pausa").retrieve().bodyToFlux(Estoque.class).timeout(Duration.ofMinutes(5));
 		
-		employeeFlux.subscribe(System.out::println);
+		ultimosFlux.subscribe(System.out::println);
 
 		// teste com:  curl -v http://localhost:9000/api/lista-stream-com-pausa
 
