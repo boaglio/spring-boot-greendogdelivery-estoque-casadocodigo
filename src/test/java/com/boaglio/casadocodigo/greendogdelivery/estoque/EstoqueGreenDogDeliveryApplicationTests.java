@@ -1,16 +1,13 @@
 package com.boaglio.casadocodigo.greendogdelivery.estoque;
 
-import java.time.Duration;
-
+import com.boaglio.casadocodigo.greendogdelivery.estoque.domain.Estoque;
+import com.boaglio.casadocodigo.greendogdelivery.estoque.queue.Producer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.boaglio.casadocodigo.greendogdelivery.estoque.domain.Estoque;
-import com.boaglio.casadocodigo.greendogdelivery.estoque.queue.Producer;
-
-import reactor.core.publisher.Flux;
+import java.time.Duration;
 
 @SpringBootTest
 class EstoqueGreenDogDeliveryApplicationTests {
@@ -21,7 +18,7 @@ class EstoqueGreenDogDeliveryApplicationTests {
 	@Test
 	void enviaMensagem() throws Exception {
 
-		Estoque estoqueTeste = new Estoque(1l, 10l);
+		var estoqueTeste = new Estoque(1L, 10L);
 
 		producer.send(estoqueTeste);
 
@@ -32,9 +29,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
 
 		System.out.println("------ Lista Ultimos ------");
 		
-		WebClient client = WebClient.create("http://localhost:9000");
+		var client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> ultimosFlux = client.get().uri("/api/ultimos").retrieve().bodyToFlux(Estoque.class);
+		var ultimosFlux = client.get().uri("/api/ultimos").retrieve().bodyToFlux(Estoque.class);
 		
 		ultimosFlux.subscribe(System.out::println);
 
@@ -45,9 +42,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
 		
 		System.out.println("------ Lista Estoque com Stream ------");
 
-		WebClient client = WebClient.create("http://localhost:9000");
+		var client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> ultimosFlux = client.get().uri("/api/lista-stream").retrieve().bodyToFlux(Estoque.class);
+		var ultimosFlux = client.get().uri("/api/lista-stream").retrieve().bodyToFlux(Estoque.class);
 		
 		ultimosFlux.subscribe(System.out::println);
 		
@@ -60,9 +57,9 @@ class EstoqueGreenDogDeliveryApplicationTests {
 
 		System.out.println("------ Lista Estoque com Stream Pausado ------");
         
-		WebClient client = WebClient.create("http://localhost:9000");
+		var client = WebClient.create("http://localhost:9000");
 		
-		Flux<Estoque> ultimosFlux = client.get().uri("/api/lista-stream-com-pausa").retrieve().bodyToFlux(Estoque.class).timeout(Duration.ofMinutes(5));
+		var ultimosFlux = client.get().uri("/api/lista-stream-com-pausa").retrieve().bodyToFlux(Estoque.class).timeout(Duration.ofMinutes(5));
 		
 		ultimosFlux.subscribe(System.out::println);
 

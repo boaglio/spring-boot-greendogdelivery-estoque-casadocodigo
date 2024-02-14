@@ -9,7 +9,6 @@ import reactor.core.publisher.Flux;
 public interface ReactiveEstoqueRepository extends ReactiveCrudRepository<Estoque, String> {
 
 	Flux<Estoque> findAll();
-	
 	Flux<Estoque> findTop10ByOrderByIdDesc();
 
 }

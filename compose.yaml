@@ -3,15 +3,15 @@ version: '3'
 services:
   
   mongo:
-    image: mongo
+    image: mongo:7-jammy
     volumes:
       - ./mongodb-data:/data/db
     ports:
       - "27017:27017"
 # acesso administrativo MongoDB:
-#   http://0.0.0.0:8081
+#   http://0.0.0.0:8081 user: admin senha: pass
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0-20-alpine3.19
     links:
       - mongo
     container_name: "mongo-express"

@@ -1,2 +1,8 @@
 server:
-  port: 9000 
+  port: 9000
+
+springdoc:
+  version: 1.0
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
