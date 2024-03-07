@@ -1,5 +1,7 @@
 package com.boaglio.casadocodigo.greendogdelivery.estoque.carga;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -13,35 +15,41 @@ import reactor.core.publisher.Mono;
 @Component
 public class RepositoryTest implements ApplicationRunner {
 
-	private static final long TOTAL_DE_REGISTROS = 100000l;
+	private static final long TOTAL_DE_REGISTROS = 100000L;
 
-	@Autowired
-	private EstoqueRepository repository;
+	private final Logger logger = LoggerFactory.getLogger(RepositoryTest.class.getSimpleName());
 
-	@Override
+
+	private final EstoqueRepository repository;
+
+    public RepositoryTest(EstoqueRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
 
-		Long totalAntes = repository.count();
+		var totalAntes = repository.count();
 
 		if (totalAntes <  TOTAL_DE_REGISTROS) {
 
-			System.out.println(">>> Iniciando carga de dados...");
+			logger.info(">>> Iniciando carga de dados...");
 
-			System.out.println(">>> Total antes: " + Mono.just(totalAntes));
+			logger.info(">>> Total antes: " + Mono.just(totalAntes));
 
 			int contador;
 			for (contador = 0; contador < TOTAL_DE_REGISTROS; contador++) {
 				repository.save(new Estoque(getRandomIntegerBetweenRange(1, 3), getRandomIntegerBetweenRange(1, 5)));
 
 				if (contador % 100 == 0)
-					System.out.println(">>> Gravado estoque: " + (contador + 1));
+					logger.info(">>> Gravado estoque: " + (contador + 1));
 			}
 
-			System.out.println(">>> Total de registros gravados: " + contador);
+			logger.info(">>> Total de registros gravados: " + contador);
 
-			Long totalDepois = repository.count();
+			var totalDepois = repository.count();
 
-			System.out.println(">>> Total depois: " + totalDepois);
+			logger.info(">>> Total depois: " + totalDepois);
 		}
 
 	}

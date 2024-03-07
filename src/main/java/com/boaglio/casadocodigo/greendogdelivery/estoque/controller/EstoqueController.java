@@ -3,6 +3,8 @@ package com.boaglio.casadocodigo.greendogdelivery.estoque.controller;
 import java.time.Duration;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,9 @@ public class EstoqueController {
 	@Autowired 
 	@Qualifier("reactiveEstoqueRepository")
 	ReactiveEstoqueRepository reactiveEstoqueRepository;
-	
+
+	private final Logger logger = LoggerFactory.getLogger(EstoqueController.class.getSimpleName());
+
 	@GetMapping("/lista")
 	public List<Estoque> getTodoEstoque() {
 		return estoqueRepository.findAll();
@@ -38,7 +42,7 @@ public class EstoqueController {
 	
 	@PostMapping("/atualiza")
 	public String atualiza(@RequestBody Estoque estoque) {
-		System.out.println("Recebido via REST: "+estoque);
+		logger.info("Recebido via REST: "+estoque);
 		estoqueRepository.save(estoque);
 		return "Ok";
 	}
@@ -67,7 +71,7 @@ public class EstoqueController {
 	
 	@PostMapping("/atualiza-reativo")
 	public Mono<String> atualizaReativo(@RequestBody Estoque estoque) {
-		System.out.println("Recebido via REST: "+estoque);
+		logger.info("Recebido via REST: "+estoque);
 		estoqueRepository.save(estoque);
 		return Mono.just("Ok");
 	}
