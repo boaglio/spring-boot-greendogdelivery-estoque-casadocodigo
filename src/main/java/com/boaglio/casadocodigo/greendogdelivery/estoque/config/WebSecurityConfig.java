@@ -3,6 +3,7 @@ package com.boaglio.casadocodigo.greendogdelivery.estoque.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
@@ -27,10 +28,11 @@ public class WebSecurityConfig   {
 						.requestMatchers("/", "/home", "/api/logs").permitAll()
 						.anyRequest().authenticated()
 				)
-				.formLogin((form) -> form
-						.loginPage("/login")
-						.permitAll()
-				)
+				.httpBasic(Customizer.withDefaults())
+//				.formLogin((form) -> form
+//						.loginPage("/login")
+//						.permitAll()
+//				)
 				.logout(LogoutConfigurer::permitAll);
 
 		return http.build();
